@@ -1,0 +1,105 @@
+---
+title: "Laboratorio45-MD"
+author: "Leislie R. Manjarrez O."
+date: "2023-03-13"
+output: html_document
+---
+
+Hecho con gusto por Leislie R. Manjarrez O.
+
+Laboratorio 45- Grafico de puntos con ggplot2
+
+Instalar paquete de datos
+install.packages("gapminder")
+
+Llamar la libreria
+```{r}
+library(gapminder)
+```
+
+Cargar los datos al entorno
+```{r}
+data("gapminder")
+```
+
+Crear objeto filtrando por año
+```{r}
+gapminder2007 <- gapminder [gapminder$year == "2007",]
+```
+
+Visualizar encabezados
+```{r}
+head(gapminder2007)
+```
+
+Instalar ggplot2
+install.packages("ggplot2")
+
+Llamar a la libreria
+```{r}
+library(ggplot2)
+```
+
+Crear un gráfico de puntos con ggplot
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x = gdpPercap,
+                     y = lifeExp)) +
+  geom_point()
+```
+
+Probando con distintos colores
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x = gdpPercap,
+                     y = lifeExp,
+                     color = continent)) +
+  geom_point()
+```
+
+Probando mas esteticas como forma y tamano
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x = gdpPercap,
+                     y = lifeExp,
+                     color = continent,
+                     shape = continent,
+                     size = pop)) +
+  geom_point()
+```
+
+Anadiendo texto
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x = gdpPercap,
+                     y = lifeExp,
+                     color = continent,
+                     shape = continent,
+                     size = pop)) +
+  geom_point() +
+  geom_text(label = gapminder2007$country,
+            color = "black",
+            size = 3)
+```
+
+Colocando lineas de regresion
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x = gdpPercap,
+                     y = lifeExp,
+                     color = continent)) +
+  geom_point() +
+  geom_smooth (method = lm)
+```
+
+Quitando desviacion estandar de las lineas de regresion
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x = gdpPercap,
+                     y = lifeExp,
+                     color = continent)) +
+  geom_point() +
+  geom_smooth (method = lm,
+               se = FALSE,
+               fullrange = TRUE)
+```
